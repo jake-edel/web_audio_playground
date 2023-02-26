@@ -5,8 +5,5 @@ import OscillatorSimple from '../components/OscillatorSimple.vue'
 <template>
 	<main>
 		<OscillatorSimple />
-		<OscillatorSimple />
-		<OscillatorSimple />
-		<OscillatorSimple />
 	</main>
 </template>
