@@ -62,8 +62,10 @@ export default {
 </script>
 
 <style lang="scss">
+	@import '../styles/abstracts/variables';
+
 	.container {
-		background-color: hsla(160, 100%, 37%, 1);
+		background-color: $btn-green;
 		border-radius: 10px;
 		padding: 10px;
 		margin: 10px;
