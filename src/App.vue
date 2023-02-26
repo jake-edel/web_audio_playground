@@ -1,12 +1,12 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import NavHeader from './components/NavHeader.vue'
+import SiteHeader from './components/SiteHeader.vue'
 </script>
 
 <template>
     <header>
 		<div class="wrapper">
-			<NavHeader msg="Tuner" />
+			<SiteHeader msg="Tuner" />
 
 			<nav>
 				<RouterLink to="/">Home</RouterLink>
