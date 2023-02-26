@@ -1,4 +1,5 @@
-@import './base.css';
+@use './abstracts/_variables.scss';
+@use './base.css';
 
 #app {
   max-width: 1280px;
