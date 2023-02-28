@@ -1,9 +1,9 @@
 <template>
 	<div class="container">
 		<div class="controls">
-			<button class="ctrl-btn" @click="createAudioContext">
+			<!-- <button class="ctrl-btn" @click="createAudioContext">
 				Create Audio Context
-			</button>
+			</button> -->
 			<button class="ctrl-btn" @click="startOscillator">
 				Start Oscillator
 			</button>
@@ -13,6 +13,7 @@
 			<button class="ctrl-btn" @click="resumeOscillator">
 				Resume Oscillator
 			</button>
+			<DropdownSelect :name="'waveforms'" :options="waveforms" @setSelection="setWaveform(waveform)"/>
 			<input type="range" min="40" max="15000" v-model="oscFrequency">
 			<div>
 				Current Frequency: {{ oscFrequency }}
@@ -22,28 +23,33 @@
 </template>
 
 <script>
+import DropdownSelect from '../controls/DropdownSelect.vue'
+
 export default {
+	components: {
+		DropdownSelect
+	},
 	data () {
 		return {
-			audioContext: null,
 			oscillator: null,
-			oscFrequency: 600
+			oscFrequency: 600,
+			waveform: 'sine',
+			waveforms: ['sine', 'square', 'sawtooth', 'triangle']
+		}
+	},
+	props: {
+		audioContext: {
+			type: Object,
+			required: true
 		}
 	},
 	computed: {
-		newTest () {
-			return 'test' + ' new'
-		}
+
 	},
 	methods: {
-		createAudioContext () {
-			this.audioContext = new AudioContext
+		startOscillator () {
 			this.oscillator = this.audioContext.createOscillator()
 			this.oscillator.connect(this.audioContext.destination)
-			console.log('Audio Context Created: ', this.audioContext)
-			console.log('Oscillator Created: ', this.oscillator)
-		},
-		startOscillator () {
 			this.oscillator.start()
 		},
 		stopOscillator () {
@@ -51,12 +57,22 @@ export default {
 		},
 		resumeOscillator () {
 			this.audioContext.resume().then(() => { console.log('Audio Context Resumed') })
+		},
+		setWaveform (newWaveform) {
+			console.log('arg emitted: ', newWaveform)
+			console.log('setting waveform from ', this.waveform, ' to ', newWaveform)
+			this.waveform = newWaveform
 		}
 	},
 	watch: {
 		oscFrequency () {
 			this.oscillator.frequency.value = this.oscFrequency
+		},
+		waveform () {
+			console.log('waveform changed', this.waveform)
+			this.oscillator.type = this.waveform
 		}
+
 	}
 }
 </script>
