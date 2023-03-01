@@ -1,9 +1,6 @@
 <template>
 	<div class="container">
 		<div class="controls">
-			<!-- <button class="ctrl-btn" @click="createAudioContext">
-				Create Audio Context
-			</button> -->
 			<button class="ctrl-btn" @click="startOscillator">
 				Start Oscillator
 			</button>
@@ -13,7 +10,11 @@
 			<button class="ctrl-btn" @click="resumeOscillator">
 				Resume Oscillator
 			</button>
-			<DropdownSelect :name="'waveforms'" :options="waveforms" @setSelection="setWaveform(waveform)"/>
+			<DropdownSelect 
+				:name="'waveforms'"
+				:options="waveforms"
+				@setSelection="setWaveform"
+			/>
 			<input type="range" min="40" max="15000" v-model="oscFrequency">
 			<div>
 				Current Frequency: {{ oscFrequency }}
@@ -48,8 +49,6 @@ export default {
 	},
 	methods: {
 		startOscillator () {
-			this.oscillator = this.audioContext.createOscillator()
-			this.oscillator.connect(this.audioContext.destination)
 			this.oscillator.start()
 		},
 		stopOscillator () {
@@ -73,6 +72,10 @@ export default {
 			this.oscillator.type = this.waveform
 		}
 
+	},
+	created () {
+		this.oscillator = this.audioContext.createOscillator()
+		this.oscillator.connect(this.audioContext.destination)
 	}
 }
 </script>

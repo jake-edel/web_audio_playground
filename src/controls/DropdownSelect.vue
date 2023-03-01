@@ -1,12 +1,11 @@
 <template>
     <label :for="name"></label>
     <select :name="name">
-        <!-- @change="setSelection(value)" -->
             <option 
                 v-for="(option, index) in options"
                 :value="option"
                 :key="index"
-                @click="setSelection(option)"
+                @click="$emit('setSelection', option)"
             >
                 {{ option[0].toUpperCase() + option.substring(1) }}
             </option>
@@ -25,13 +24,7 @@ export default {
             required: true
         }
     },
-    methods: {
-        setSelection(selection) {
-            console.log('event emitted, settingSelecton to ', selection)
-            this.$emit('setSelection', selection)
-        }
-    }
-
+    emits: ['setSelection']
 }
 </script>
 
